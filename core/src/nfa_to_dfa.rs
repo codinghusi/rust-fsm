@@ -13,7 +13,7 @@ impl Hash for MetaState {
 }
 
 impl Into<DFA> for NFA {
-    fn into(mut self) -> DFA {
+    fn into(self) -> DFA {
         enum Id {
             New(StateId),
             Existed(StateId)
@@ -67,7 +67,7 @@ impl Into<DFA> for NFA {
             }
 
             // visit new meta states
-            for (terminal, to_state_ids) in new_raw_state.iter() {
+            for (_, to_state_ids) in new_raw_state.iter() {
                 if let Id::New(_) = get_state_id(to_state_ids.clone()) {
                     to_visit.push_back(to_state_ids.clone());
                 }
@@ -93,8 +93,6 @@ impl Into<DFA> for NFA {
 
             states.insert(meta_state_id, new_dfa_state);
         }
-
-        println!("mapping:\n{}", id_mapping.into_iter().map(|(key, value)| format!("{} => {:?}", value, key.0)).collect::<Vec<_>>().join("\n"));
 
         DFA {
             table: states,

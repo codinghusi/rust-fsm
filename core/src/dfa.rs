@@ -4,7 +4,7 @@ type StateId = usize;
 type Terminal = char;
 pub type DFAState = HashMap<Terminal, StateId>;
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub struct DFA {
     pub table: HashMap<StateId, DFAState>,
     pub start_state: Option<StateId>,

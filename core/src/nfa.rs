@@ -1,13 +1,11 @@
-use std::collections::{HashSet, HashMap, VecDeque};
-use std::hash::{Hash, Hasher};
-use crate::dfa::DFA;
+use std::collections::{HashSet, HashMap};
 
 pub type StateId = usize;
 pub type Terminal = char;
 
 pub type NFAState = HashMap<Terminal, HashSet<StateId>>;
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct NFA {
     pub table: HashMap<StateId, NFAState>,
     pub start_states: HashSet<StateId>,
@@ -35,7 +33,7 @@ impl NFA {
         let transition_set = if let Some(set) = state.get_mut(&terminal) {
             set
         } else {
-            let mut set = HashSet::new();
+            let set = HashSet::new();
             state.insert(terminal, set);
             state.get_mut(&terminal).unwrap()
         };

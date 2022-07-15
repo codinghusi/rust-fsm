@@ -1,9 +1,5 @@
-use crate::dfa::DFA;
-use crate::nfa::NFA;
-
-mod dfa;
-mod nfa;
-mod nfa_to_dfa;
+use core::nfa::NFA;
+use core::dfa::DFA;
 
 fn main() -> Result<(), String> {
 
